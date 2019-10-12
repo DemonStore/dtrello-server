@@ -1,5 +1,5 @@
 import { Controller, UseGuards } from '@nestjs/common';
-import { Crud } from '@nestjsx/crud';
+import { Crud, CrudController } from '@nestjsx/crud';
 import { AuthGuard } from '@nestjs/passport';
 
 import { ColumnsService } from './columns.service';
@@ -16,6 +16,13 @@ import { Column } from './column.entity';
       },
     },
   },
+  params: {
+    id: {
+      field: 'key',
+      type: 'number',
+      primary: true,
+    },
+  },
   routes: {
     getManyBase: {
       decorators: [UseGuards(AuthGuard('jwt'))],
@@ -23,6 +30,6 @@ import { Column } from './column.entity';
   },
 })
 @Controller('columns')
-export class ColumnsController {
+export class ColumnsController implements CrudController<Column> {
   constructor(public service: ColumnsService) {}
 }

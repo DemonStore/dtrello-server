@@ -10,7 +10,7 @@ import { Task } from '../tasks/task.entity';
   name: 'columns',
 })
 export class Column {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ name: 'key' })
   key: number;
 
   @ColumnDecorator('text')

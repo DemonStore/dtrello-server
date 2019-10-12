@@ -12,7 +12,7 @@ import { Column } from '../columns/column.entity';
   name: 'tasks',
 })
 export class Task {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ name: 'key' })
   key: number;
 
   @ManyToOne(type => Column, column => column.tasks)

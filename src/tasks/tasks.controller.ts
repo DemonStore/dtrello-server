@@ -1,5 +1,5 @@
 import { Controller, UseGuards } from '@nestjs/common';
-import { Crud } from '@nestjsx/crud';
+import { Crud, CrudController } from '@nestjsx/crud';
 import { AuthGuard } from '@nestjs/passport';
 
 import { TasksService } from './tasks.service';
@@ -9,6 +9,13 @@ import { Task } from './task.entity';
   model: {
     type: Task,
   },
+  params: {
+    id: {
+      field: 'key',
+      type: 'number',
+      primary: true,
+    },
+  },
   routes: {
     getManyBase: {
       decorators: [UseGuards(AuthGuard('jwt'))],
@@ -16,6 +23,6 @@ import { Task } from './task.entity';
   },
 })
 @Controller('tasks')
-export class TasksController {
+export class TasksController implements CrudController<Task> {
   constructor(public service: TasksService) {}
 }
